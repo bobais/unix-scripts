@@ -1,0 +1,12 @@
+# Place this script into /etc/cron.d/ as root
+# Replace MAILTO email and ENDPOINT_URL address
+# Adjust check frequency (modify * * * * *)
+# Set o+rwx rights
+
+# E-mail who will receive notification - please make sure, that VPS is able to send e-mails.
+MAILTO=""
+
+# URL which is checked for 200 HTTP response code
+ENDPOINT_URL="https://www.seznam.cz"
+
+* * * * * root RETURN_CODE=`curl -o /dev/null -sw "\%{http_code}\n" ${ENDPOINT_URL}`; [ $RETURN_CODE -ne "200" ] && echo "HTTP Code $RETURN_CODE for ${ENDPOINT_URL}"
