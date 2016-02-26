@@ -1,0 +1,53 @@
+#----------------------
+# GIT stuff
+#----------------------
+alias st='git status'
+alias up='git fetch -p && git pull'
+alias gb='git branch -v'
+alias gc='git checkout'
+alias gittree='git log --graph --decorate --pretty=oneline --abbrev-commit'
+alias gdiff='git diff'
+alias gdiffc='git diff --cached'
+
+# UP all subdirs in current direcotry (if you have all GIT repos orginized in
+# one directory)
+function updirs()
+{
+    for d in `ls -d */`
+    do
+        cd $d
+        echo $d $(__git_branch)
+        up
+        cd ..
+    done
+}
+
+# Show status of subdirs in current direcotry (if you have all GIT repos orginized in
+# one directory)
+function stdirs()
+{
+    for d in `ls -d */`
+    do
+        cd $d
+        echo $d $(__git_branch)
+        st
+        cd ..
+    done
+}
+
+# Display branch name
+__git_branch() {
+    b=`git symbolic-ref HEAD 2>/dev/null | sed 's%.*/\(.*\)%\1%'`
+    [ -z "$b" ] && echo "" || echo " $b"
+}
+
+#### Shell displaying branch
+# Define some colors
+RED='\e[1;31m'
+blue='\e[0;34m'
+BLUE='\e[1;34m'
+cyan='\e[0;36m'
+NC='\e[0m'    # Text Reset
+
+export PS1="\[$blue\]\u\[$BLUE\]@`hostname`\[$cyan\]\$(__git_branch) \[$RED\]\w \$\[$NC\] "
+

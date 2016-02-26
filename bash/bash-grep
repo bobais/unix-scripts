@@ -1,0 +1,15 @@
+#### GREP shortcuts
+# grep html files in current dir and subdir
+ghtml()
+{
+    grep --color=auto --colour=auto --include="*.html" $1 . -rn
+}
+
+# grep py files in current dir and subdir
+gpy()
+{
+    grep --color=auto --colour=auto --include="*.py" $1 . -rn
+}
+
+alias grep='grep --color=auto --colour=auto'
+

@@ -1,0 +1,7 @@
+#### find
+# find file - bored to remember correct syntax :)
+ff()
+{
+    find . -name '*'$1'*'
+}
+
