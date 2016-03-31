@@ -1,12 +1,16 @@
 # Place this script into /etc/cron.d/ as root
 # Replace MAILTO email and ENDPOINT_URL address
 # Adjust check frequency (modify * * * * *)
-# Set o+rwx rights
 
 # E-mail who will receive notification - please make sure, that VPS is able to send e-mails.
-MAILTO=""
+MAILTO="email1@example.org,email2@example.org"
 
 # URL which is checked for 200 HTTP response code
-ENDPOINT_URL="https://www.seznam.cz"
+REQUEST_URL="https://www.seznam.cz"
+# Specifies request method  (GET/POST/...)
+REQUEST_METHOD=GET
+# Specify extra message in e-mail (appended inline, use \n for new line)
+EXTRA_MESSAGE="\nPRODUCTION web"
 
-* * * * * root RETURN_CODE=`curl -o /dev/null -sw "\%{http_code}\n" ${ENDPOINT_URL}`; [ $RETURN_CODE -ne "200" ] && echo "HTTP Code $RETURN_CODE for ${ENDPOINT_URL}"
+* * * * * root RETURN_CODE=`curl -o /dev/null -X ${REQUEST_METHOD} -sw "\%{http_code}\n" ${REQUEST_URL}`; [ $RETURN_CODE -ne "200" ] && echo "HTTP Code $RETURN_CODE for ${REQUEST_METHOD} ${REQUEST_URL} ${EXTRA_MESSAGE}"
+
