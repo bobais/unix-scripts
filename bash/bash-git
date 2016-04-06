@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #----------------------
 # GIT stuff
 #----------------------
@@ -9,6 +11,17 @@ alias gittree='git log --graph --decorate --pretty=oneline --abbrev-commit'
 alias gdiff='git diff'
 alias gdiffc='git diff --cached'
 
+# Colors for echo command if tput is present
+ECHO_RED=""
+ECHO_GREEN=""
+ECHO_RESET=""
+if which tput > /dev/null;
+then
+    ECHO_RED=`tput setaf 1`
+    ECHO_GREEN=`tput setaf 2`
+    ECHO_RESET=`tput sgr0`
+fi
+
 # UP all subdirs in current direcotry (if you have all GIT repos orginized in
 # one directory)
 function updirs()
@@ -16,7 +29,7 @@ function updirs()
     for d in `ls -d */`
     do
         cd $d
-        echo $d $(__git_branch)
+        echo "${ECHO_RED} $d ${ECHO_GREEN}$(__git_branch)${ECHO_RESET}"
         up
         cd ..
     done
@@ -29,7 +42,7 @@ function stdirs()
     for d in `ls -d */`
     do
         cd $d
-        echo $d $(__git_branch)
+        echo "${ECHO_RED} $d ${ECHO_GREEN}$(__git_branch)${ECHO_RESET}"
         st
         cd ..
     done

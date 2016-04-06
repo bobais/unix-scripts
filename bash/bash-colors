@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Variables with colors
 black='\e[0;30m'
 BLACK='\e[1;30m'
