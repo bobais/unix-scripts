@@ -11,6 +11,8 @@ REQUEST_URL="https://www.seznam.cz"
 REQUEST_METHOD=GET
 # Specify extra message in e-mail (appended inline, use \n for new line)
 EXTRA_MESSAGE="\nPRODUCTION web"
+# Timeout in seconds for curl
+TIMEOUT=30
 
-* * * * * root RETURN_CODE=`curl -o /dev/null -X ${REQUEST_METHOD} -sw "\%{http_code}\n" ${REQUEST_URL}`; [ $RETURN_CODE -ne "200" ] && echo "HTTP Code $RETURN_CODE for ${REQUEST_METHOD} ${REQUEST_URL} ${EXTRA_MESSAGE}"
+* * * * * root RETURN_CODE=`curl -m ${TIMEOUT} -o /dev/null -X ${REQUEST_METHOD} -sw "\%{http_code}\n" ${REQUEST_URL}`; [ $RETURN_CODE -ne "200" ] && echo "HTTP Code $RETURN_CODE for ${REQUEST_METHOD} ${REQUEST_URL} ${EXTRA_MESSAGE}"
 
