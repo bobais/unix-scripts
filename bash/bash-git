@@ -10,6 +10,7 @@ alias gc='git checkout'
 alias gittree='git log --graph --decorate --pretty=oneline --abbrev-commit'
 alias gdiff='git diff'
 alias gdiffc='git diff --cached'
+alias gitlast3='git log -3 --all --date-order'
 
 # Colors for echo command if tput is present
 ECHO_RED=""
